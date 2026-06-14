@@ -1244,7 +1244,7 @@ footer {
 @media(max-width:1100px) {
   .feat-grid { grid-template-columns: repeat(2,1fr); }
   .stats-inner { grid-template-columns: repeat(2,1fr); }
-  nav { width: calc(100% - 32px); }
+  nav { width: calc(100% - 20px); }
 }
 
 /* ═══════════════════════════════════════════
@@ -1327,20 +1327,131 @@ footer {
   .demo-section .container { padding:0; }
 }
 
-/* ═══════════════════════════════════════════
-   RESPONSIVE — 400
-═══════════════════════════════════════════ */
-@media(max-width:400px) {
-  .h-title { font-size:48px; }
-  .n-cta { padding:8px 14px; font-size:12px; }
-  .fc-xp { left:0; bottom:70px; }
-  .fc-clan { right:0; top:60px; }
+/* Супер-широкие экраны (от 1600px) — центрирование, безопасные отступы */
+@media (min-width: 1600px) {
+  .hero, .container, .cta-section {
+    max-width: 1400px;
+  }
+  .hero {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .h-left {
+    padding-left: 60px;
+  }
 }
 
-/* Reduced motion */
-@media(prefers-reduced-motion:reduce) {
-  *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+/* Планшеты в альбомной ориентации (между 768px и 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .hero {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .h-left {
+    padding: 40px 20px;
+  }
+  .h-title {
+    font-size: 56px;
+  }
+  .phone {
+    width: 240px;
+  }
+  .fc-xp, .fc-clan {
+    transform: scale(0.9);
+  }
 }
+
+/* Очень маленькие экраны (≤360px) — уменьшаем отступы и шрифты */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 16px;
+  }
+  .h-title {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+  .h-sub {
+    font-size: 14px;
+  }
+  .btn-primary, .btn-ghost {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+  .feat-card {
+    padding: 20px;
+  }
+  .stat-card, .stat-live {
+    padding: 20px;
+  }
+  .clan-card-main {
+    width: 95%;
+    padding: 14px;
+  }
+  .ps-grid {
+    gap: 3px;
+  }
+  .ps-card {
+    padding: 4px 6px;
+  }
+  .phone {
+    width: min(200px, 85vw);
+  }
+  .dp-main {
+    width: 140px;
+    height: 280px;
+  }
+  .dp-side {
+    width: 120px;
+    height: 240px;
+  }
+  .demo-phones {
+    gap: 10px;
+  }
+}
+
+/* Защита от горизонтального скролла на любых экранах */
+body, html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Плавный скролл для демо-телефонов на тач-устройствах */
+.demo-phones {
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Корректировка отступов для элементов с абсолютным позиционированием на узких экранах */
+@media (max-width: 640px) {
+  .float-card {
+    white-space: normal;
+    max-width: 140px;
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  .fc-xp, .fc-clan {
+    transform: scale(0.8);
+  }
+}
+
+/* Безопасная зона для iPhone X и новее (вырезы) */
+@supports (padding: max(0px)) {
+  nav {
+    transform: none;
+    margin: 0 auto;
+  }
+  .container, .hero, .cta-section, footer {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+}
+
+/* Убираем лишние переносы у плавающих карточек */
+.float-card .fc-val, .float-card .fc-title {
+  font-weight: 600;
+}
+
 </style>
 </head>
 <body>
@@ -1360,7 +1471,7 @@ footer {
     <li><a href="#demo">Демо</a></li>
   </ul>
   <div class="n-ham" id="ham"><span></span><span></span><span></span></div>
-  <a href="https://leveluptracker.web.app//" target="_blank" class="n-cta">
+  <a href="https://tracker-mobile.expo.app/" target="_blank" class="n-cta">
     Попробовать
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
       <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -1373,7 +1484,7 @@ footer {
   <a href="#features" onclick="closeMenu()">Функции</a>
   <a href="#clan" onclick="closeMenu()">Кланы</a>
   <a href="#demo" onclick="closeMenu()">Демо</a>
-  <a href="https://leveluptracker.web.app//" class="n-drawer-cta" target="_blank">Попробовать →</a>
+  <a href="/" class="n-drawer-cta" target="_blank">Попробовать →</a>
 </div>
 
 <!-- ══ HERO ══ -->
@@ -1758,7 +1869,7 @@ footer {
       <div class="eyebrow"><div class="eyebrow-line"></div>Начни сегодня</div>
       <h2 class="cta-title">Начни свой<br><span class="grad">LevelUp</span></h2>
       <div class="cta-btns">
-        <a href="https://leveluptracker.web.app//" target="_blank" class="btn-primary" style="font-size:15px;padding:16px 36px">
+        <a href="https://tracker-mobile.expo.app/" target="_blank" class="btn-primary" style="font-size:15px;padding:16px 36px">
           Получить доступ
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
             <path d="M2 14L14 2M14 2H6M14 2V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
